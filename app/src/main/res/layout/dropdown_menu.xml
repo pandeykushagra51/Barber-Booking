@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:visibility="visible">
+
+    <item
+        android:id="@+id/option_1"
+        android:title="save" />
+
+    <item
+        android:id="@+id/option_2"
+        android:title="copy" />
+
+    <item
+        android:id="@+id/option_3"
+
+        android:title="Share" />
+</menu>

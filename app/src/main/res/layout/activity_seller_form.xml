@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:isScrollContainer="true"
+    android:orientation="vertical">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="100dp">
+
+                <!-- add a Image image.png in your Drawable folder -->
+                <ImageView
+                    android:id="@+id/customer_form_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/hide_bottom_view_on_scroll_behavior"
+                    android:isScrollContainer="false"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/god" />
+
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/login_button"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:text="Select Image" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:hint="Username"
+                android:isScrollContainer="false"
+                android:scrollbarSize="10dp"
+                app:endIconDrawable="@drawable/clear_text"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/purple_500"
+                app:endIconTintMode="src_in">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/customer_form_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/first_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:hint="First Name"
+                android:isScrollContainer="false"
+                android:scrollbarSize="10dp"
+                app:endIconDrawable="@drawable/clear_text"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/purple_500"
+                app:endIconTintMode="src_in">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/customer_form_first_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/last_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:hint="Last Name"
+                android:isScrollContainer="false"
+                android:scrollbarSize="10dp"
+                app:endIconDrawable="@drawable/clear_text"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/purple_500"
+                app:endIconTintMode="src_in">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/customer_form_last_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:hint="Phone Number"
+                android:isScrollContainer="false"
+                android:scrollbarSize="10dp"
+                app:endIconDrawable="@drawable/clear_text"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/purple_500"
+                app:endIconTintMode="src_in">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/customer_form_phone_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/email_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:hint="Email Id"
+                android:isScrollContainer="false"
+                android:scrollbarSize="10dp"
+                app:endIconDrawable="@drawable/clear_text"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/purple_500"
+                app:endIconTintMode="src_in">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/customer_form_email_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/user_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:hint="Password"
+                android:isScrollContainer="false"
+                android:scrollbarSize="10dp"
+                app:endIconDrawable="@drawable/clear_text"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/purple_500"
+                app:endIconTintMode="src_in">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/customer_form_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/user_pin_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:hint="Pin Code"
+                android:isScrollContainer="false"
+                android:scrollbarSize="10dp"
+                app:endIconDrawable="@drawable/clear_text"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/purple_500"
+                app:endIconTintMode="src_in">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/seller_form_pin_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/user_city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:hint="City"
+                android:isScrollContainer="false"
+                android:scrollbarSize="10dp"
+                app:endIconDrawable="@drawable/clear_text"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/purple_500"
+                app:endIconTintMode="src_in">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/seller_form_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/user_locality"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:hint="Locality"
+                android:isScrollContainer="false"
+                android:scrollbarSize="10dp"
+                app:endIconDrawable="@drawable/clear_text"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/purple_500"
+                app:endIconTintMode="src_in">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/seller_form_locality"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/user_shop_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:hint="Shop Name"
+                android:isScrollContainer="false"
+                android:scrollbarSize="10dp"
+                app:endIconDrawable="@drawable/clear_text"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/purple_500"
+                app:endIconTintMode="src_in">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/seller_form_shop_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:textSize="20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/customer_form_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:text="Register" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

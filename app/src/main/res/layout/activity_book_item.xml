@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:visibility="visible">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:isScrollContainer="true"
+        android:visibility="visible"
+        tools:context=".BookItemActivity">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/image_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:addStatesFromChildren="false"
+            android:alwaysDrawnWithCache="false"
+            android:animateLayoutChanges="true"
+            android:animationCache="true"
+            android:checkable="true"
+            android:clickable="true"
+            android:clipChildren="true"
+            android:duplicateParentState="false"
+            android:focusable="true"
+            android:focusableInTouchMode="false"
+            android:padding="5dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:cardMaxElevation="0dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.01">
+
+
+            <ImageView
+                android:id="@+id/main_item_image"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_gravity="center_horizontal"
+                tools:srcCompat="@tools:sample/avatars" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/main_item_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:drawableLeft="@drawable/rupee"
+            android:text="Item Rate"
+            android:textSize="26sp"
+            app:layout_constraintStart_toStartOf="@+id/main_item_name"
+            app:layout_constraintTop_toBottomOf="@+id/main_item_name" />
+
+
+        <android.widget.RatingBar
+            android:id="@+id/main_item_rating"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_name"
+            android:layout_alignBottom="@id/item_name"
+            android:layout_marginStart="104dp"
+            android:layout_marginTop="96dp"
+            android:layout_toRightOf="@id/item_image"
+            android:maxHeight="40dip"
+            android:numStars="5"
+            android:progressTint="@color/purple_500"
+            android:rating="4.3"
+            android:scaleX="1.2"
+            android:scaleY="1.2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.392"
+            app:layout_constraintStart_toEndOf="@+id/main_item_rate"
+            app:layout_constraintTop_toBottomOf="@+id/image_card" />
+
+        <Button
+            android:id="@+id/book_item"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="341dp"
+            android:layout_height="84dp"
+            android:layout_margin="25dp"
+            android:duplicateParentState="true"
+            android:icon="@drawable/clear_text"
+            android:text="Book Now"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:icon="@drawable/img2"
+            app:iconTint="#0AFFFFFF"
+            app:iconTintMode="src_over"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.563"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_item_rating"
+            app:layout_constraintVertical_bias="0.017"
+            app:strokeColor="@color/purple_500"
+            app:strokeWidth="2dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/product_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:animateLayoutChanges="true"
+            android:animationCache="true"
+            android:checkable="true"
+            android:clickable="true"
+            android:clipChildren="true"
+            android:duplicateParentState="false"
+            android:focusable="auto"
+            android:padding="5dp"
+            android:transitionGroup="false"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:cardMaxElevation="0dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true"
+            app:checkedIcon="@drawable/ic_baseline_check_circle_24"
+            app:checkedIconTint="@color/purple_500"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/book_item"
+            app:layout_constraintVertical_bias="0.066"
+            tools:layout_editor_absoluteX="0dp">
+
+
+            <TextView
+                android:id="@+id/main_seller_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:autoLink="all"
+                android:drawableLeft="@drawable/seller"
+                android:drawablePadding="10dp"
+                android:linksClickable="true"
+                android:singleLine="false"
+                android:text="Seller Name"
+                android:textColor="@color/purple_500"
+                android:textColorLink="#DA1919"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/book_item"
+                app:layout_constraintTop_toBottomOf="@+id/book_item"
+                app:layout_constraintVertical_bias="0.119" />
+
+
+            <TextView
+                android:id="@+id/main_pincode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="55dp"
+                android:drawableLeft="@drawable/location"
+                android:drawablePadding="7dp"
+                android:text="Seller PIN Code"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintHorizontal_bias="0.142"
+                app:layout_constraintStart_toStartOf="@+id/main_seller_name"
+                app:layout_constraintTop_toBottomOf="@+id/main_seller_name" />
+
+            <TextView
+                android:id="@+id/main_adress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/main_seller_name"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="90dp"
+                android:text="Seller Adress"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.396"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_pincode" />
+
+            <TextView
+                android:id="@+id/main_phone_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="140dp"
+                android:drawableLeft="@drawable/phone"
+                android:drawablePadding="7dp"
+                android:text="Seller Phone Number"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/main_pincode"
+                app:layout_constraintTop_toBottomOf="@+id/main_adress" />
+
+            <TextView
+                android:id="@+id/main_emailid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="180dp"
+                android:layout_marginBottom="10dp"
+                android:drawableLeft="@drawable/email"
+                android:drawablePadding="7dp"
+                android:text="Seller Email Adress"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/main_phone_number"
+                app:layout_constraintTop_toBottomOf="@+id/main_phone_number"
+                app:layout_constraintVertical_bias="0.257" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="20dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toTopOf="@+id/product_row"
+            app:layout_constraintTop_toBottomOf="@+id/book_item"
+            app:layout_constraintVertical_bias="1.0"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <View
+            android:id="@+id/divider5"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/product_row"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <TextView
+            android:id="@+id/main_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:text="TextView"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.15"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_card" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

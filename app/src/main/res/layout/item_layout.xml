@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/product_row"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:addStatesFromChildren="false"
+    android:alwaysDrawnWithCache="false"
+    android:animateLayoutChanges="true"
+    android:animationCache="true"
+    android:checkable="true"
+    android:clickable="true"
+    android:clipChildren="true"
+    android:duplicateParentState="false"
+    android:focusable="true"
+    android:focusableInTouchMode="false"
+    android:padding="5dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="0dp"
+    app:cardMaxElevation="0dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.01">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#FDFAFA"
+        android:backgroundTint="#FFFFFF">
+
+        <ImageView
+            android:id="@+id/item_image"
+            android:layout_width="90dp"
+            android:layout_height="90dp" />
+
+        <TextView
+            android:id="@+id/item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/item_image"
+            android:hint="Service Name"
+            android:textSize="24sp" />
+
+        <android.widget.RatingBar
+            android:id="@+id/main_item_rating"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_name"
+            android:layout_alignBottom="@id/item_name"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="-51dp"
+            android:layout_toRightOf="@id/item_image"
+            android:maxHeight="40dip"
+            android:numStars="5"
+            android:progressTint="#9EAE06"
+            android:rating="4.3"
+            android:scaleX="1.2"
+            android:scaleY="1.2" />
+
+        <TextView
+            android:id="@+id/item_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/item_name"
+            android:layout_marginLeft="128dp"
+            android:layout_marginBottom="-29dp"
+            android:layout_toRightOf="@id/main_item_rating"
+            android:text="@Rs"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+</com.google.android.material.card.MaterialCardView>
