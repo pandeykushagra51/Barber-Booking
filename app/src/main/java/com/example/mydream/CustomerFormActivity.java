@@ -42,7 +42,7 @@ public class CustomerFormActivity extends AppCompatActivity {
                 }
                 customerViewModel.Insert(new Customer(user_name.getText().toString(),password.getText().toString(),
                                         first_name.getText().toString(),last_name.getText().toString(),phone_number.getText().toString(),
-                                        email_id.getText().toString(),Tools.ImageViewToByte(image) ));
+                                        email_id.getText().toString(),Tools.Companion.ImageViewToByte(image) ));
             }
         });
 

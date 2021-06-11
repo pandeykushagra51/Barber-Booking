@@ -83,10 +83,10 @@ public class Product {
         this.itemSimilarName = itemSimilarName;
     }
 
-    public List<Bitmap> getItemImages() {
+    public List<byte[]> getItemImages() {
         Gson gson = new Gson();
-        Type bitMapType = new TypeToken<List<Bitmap>>(){}.getType();
-        List<Bitmap> list = gson.fromJson(itemImages,bitMapType);
+        Type bitMapType = new TypeToken<List<byte[]>>(){}.getType();
+        List<byte[]> list = gson.fromJson(itemImages,bitMapType);
         return list;
     }
 

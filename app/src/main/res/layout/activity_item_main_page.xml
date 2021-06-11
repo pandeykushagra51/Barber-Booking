@@ -36,10 +36,11 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textField"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginBottom="10dp"
                 android:focusableInTouchMode="true"
                 android:labelFor="@id/search_bitton"
                 android:scrollbarSize="1dp"
@@ -51,17 +52,17 @@
                 app:boxStrokeColor="@color/purple_500"
                 app:boxStrokeWidth="1dp"
                 app:endIconMode="clear_text"
+                app:endIconTint="#6200EE"
                 app:helperTextTextColor="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/search_bitton"
-                app:layout_constraintTop_toTopOf="parent"
-                app:startIconDrawable="@drawable/search">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/serach_item_text"
-                    android:layout_width="327dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:drawableLeft="@drawable/ic_baseline_search_20"
+                    android:drawableLeft="@drawable/ic_baseline_search_24"
                     android:drawablePadding="20dp"
                     android:hint="Search"
                     android:shadowColor="@color/purple_500"
@@ -70,22 +71,15 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:id="@+id/search_bitton"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="60dp"
+            <ImageButton
+                android:id="@+id/serach_mic"
+
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginTop="100dp"
-                android:layout_marginRight="15dp"
-                app:cornerRadius="50dp"
-                app:icon="@drawable/ic_baseline_keyboard_voice_24"
-                app:iconGravity="textStart"
-                app:iconTint="@color/purple_500"
-                app:layout_constraintBottom_toBottomOf="@+id/textField"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0"
-                tools:layout_editor_absoluteX="345dp" />
+                android:layout_marginLeft="370dp"
+                android:layout_marginTop="90dp"
+                android:backgroundTint="#00FFFFFF"
+                app:srcCompat="@drawable/ic_baseline_mic_24" />
 
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -105,8 +99,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/suggestion_rv"
-        android:layout_width="370dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="170dp" />
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="150dp" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

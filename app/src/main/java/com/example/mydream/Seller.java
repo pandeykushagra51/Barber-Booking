@@ -21,7 +21,7 @@ public class Seller extends User {
     @ColumnInfo
     protected String adress;
     @ColumnInfo
-    protected String productIds= null;
+    protected String productIds;
     @ColumnInfo
     protected String totalSlots;
     @ColumnInfo
@@ -53,6 +53,9 @@ public class Seller extends User {
         Gson gson = new Gson();
         Type intType = new TypeToken<List<Integer>>(){}.getType();
         List<Integer> list = gson.fromJson(productIds,intType);
+        if(list==null){
+            list=new ArrayList<Integer>();
+        }
         list.add(id);
         String json = gson.toJson(list);
         this.productIds = json;
@@ -99,8 +102,16 @@ public class Seller extends User {
         return orders;
     }
 
-    public void setOrders(String orders) {
-        this.orders = orders;
+    public void setOrders(int productId, String customerId, String time) {
+        List<Object> list=null;
+        list.add(productId);
+        list.add(customerId);
+        list.add(time);
+        Gson gson = new Gson();
+        Type objectType = new TypeToken<List<Object>>(){}.getType();
+        List<Object> list1 = gson.fromJson(orders,objectType);
+        list1.add(list);
+        this.orders = gson.toJson(list1);
     }
 
 }

@@ -29,11 +29,19 @@ public class CustomerRepo {
         return customer=customerDao.getCustomerDetail(id);
     }
 
+    public void Update(Customer customer){
+        customerDao.Update(customer);
+    }
+
     public List<String> getAllUserName(){
         return customerDao.getAllUserName();
     }
 
     public LiveData<List<Customer>> getAllCustomer() {
         return customerDao.getAll();
+    }
+
+    public  boolean isUserExist(String id){
+        return customerDao.isUserIsExist(id);
     }
 }

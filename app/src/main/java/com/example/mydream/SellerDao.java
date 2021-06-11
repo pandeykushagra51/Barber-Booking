@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,8 @@ public interface SellerDao {
     @Query("SELECT * FROM SELLER WHERE user_name LIKE :id")
     LiveData<Seller> getSellerDetailLive(String id);
 
-
+    @Update
+    void Update(Seller seller);
 
     @Query("SELECT * FROM SELLER WHERE user_name LIKE :id")
     Seller getSellerDetail(String id);
@@ -36,6 +38,4 @@ public interface SellerDao {
     @Query("SELECT productIds FROM SELLER WHERE user_name LIKE :id")
     public String getProductIds(String id);
 
-    @Query("UPDATE SELLER SET productIds = :val WHERE user_name LIKE :id")
-    public void setProductId(String id,String val);
 }

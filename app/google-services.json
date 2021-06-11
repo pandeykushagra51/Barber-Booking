@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1003213290251",
+    "project_id": "booke-barber",
+    "storage_bucket": "booke-barber.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003213290251:android:17a6ba6e23d1250aff000e",
+        "android_client_info": {
+          "package_name": "com.example.mydream"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003213290251-vgkscmc49gi7ld192u4r0v1l81ea29hk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mydream",
+            "certificate_hash": "a0a70b0e810dabe0160dcbe5c43556604f9fef4f"
+          }
+        },
+        {
+          "client_id": "1003213290251-f7sgfctch2d6hf4rill0j9561rb85298.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5HfSz32ebhroccWZFmLncW4QgAxhb1BI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1003213290251-f7sgfctch2d6hf4rill0j9561rb85298.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

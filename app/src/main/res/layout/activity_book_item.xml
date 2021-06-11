@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
     android:fillViewport="true"
     android:visibility="visible">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clickable="true"
         android:isScrollContainer="true"
         android:visibility="visible"
         tools:context=".BookItemActivity">
@@ -84,12 +86,37 @@
             app:layout_constraintStart_toEndOf="@+id/main_item_rate"
             app:layout_constraintTop_toBottomOf="@+id/image_card" />
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/menu"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_marginTop="48dp"
+            android:hint="Select Slot"
+            app:endIconCheckable="false"
+            app:endIconMode="dropdown_menu"
+            app:layout_constraintTop_toBottomOf="@+id/main_item_rate"
+            app:startIconDrawable="@drawable/ic_baseline_access_time_24"
+            app:startIconTint="@color/purple_500"
+            tools:layout_editor_absoluteX="24dp">
+
+            <AutoCompleteTextView
+                android:id="@+id/slot_timing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:completionHint="Select Slot"
+                android:inputType="none" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <Button
             android:id="@+id/book_item"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="341dp"
             android:layout_height="84dp"
             android:layout_margin="25dp"
+            android:clickable="true"
             android:duplicateParentState="true"
             android:icon="@drawable/clear_text"
             android:text="Book Now"
@@ -100,10 +127,10 @@
             app:iconTintMode="src_over"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.563"
+            app:layout_constraintHorizontal_bias="0.533"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_item_rating"
-            app:layout_constraintVertical_bias="0.017"
+            app:layout_constraintTop_toBottomOf="@+id/product_row"
+            app:layout_constraintVertical_bias="0.133"
             app:strokeColor="@color/purple_500"
             app:strokeWidth="2dp" />
 
@@ -111,7 +138,7 @@
             android:id="@+id/product_row"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="40dp"
             android:animateLayoutChanges="true"
             android:animationCache="true"
             android:checkable="true"
@@ -129,9 +156,7 @@
             app:cardUseCompatPadding="true"
             app:checkedIcon="@drawable/ic_baseline_check_circle_24"
             app:checkedIconTint="@color/purple_500"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/book_item"
-            app:layout_constraintVertical_bias="0.066"
+            app:layout_constraintTop_toBottomOf="@+id/menu"
             tools:layout_editor_absoluteX="0dp">
 
 

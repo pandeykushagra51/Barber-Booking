@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -18,6 +19,9 @@ public interface CustomerDao {
     @Query("DELETE FROM CUSTOMER WHERE user_name LIKE :id")
     void Delete(String id);
 
+    @Update
+    void Update(Customer customer);
+
     @Query("SELECT * FROM CUSTOMER")
     LiveData<List<Customer>> getAll();
 
@@ -30,5 +34,6 @@ public interface CustomerDao {
     @Query("SELECT * FROM CUSTOMER WHERE user_name LIKE :id")
     Customer getCustomerDetail(String id);
 
-
+    @Query("SELECT EXISTS(SELECT * FROM CUSTOMER WHERE user_name = :id)")
+    boolean isUserIsExist(String id);
 }

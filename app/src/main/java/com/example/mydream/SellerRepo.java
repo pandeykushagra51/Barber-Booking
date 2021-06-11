@@ -40,4 +40,7 @@ public class SellerRepo {
     public LiveData<List<Seller>> getAllSeller() {
         return sellerDao.getAll();
     }
+    public void Update(Seller seller){
+        sellerDao.Update(seller);
+    }
 }

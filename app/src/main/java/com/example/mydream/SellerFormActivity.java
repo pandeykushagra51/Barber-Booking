@@ -46,7 +46,7 @@ public class SellerFormActivity extends AppCompatActivity {
                 }
                 sellerViewModel.Insert(new Seller(user_name.getText().toString(),password.getText().toString(),
                         first_name.getText().toString(),last_name.getText().toString(),phone_number.getText().toString(),
-                        email_id.getText().toString(),Tools.ImageViewToByte(image), picode.getText().toString(),
+                        email_id.getText().toString(),Tools.Companion.ImageViewToByte(image), picode.getText().toString(),
                         locality.getText().toString() + " " + city.getText().toString(), shop_name.getText().toString() ));
             }
         });

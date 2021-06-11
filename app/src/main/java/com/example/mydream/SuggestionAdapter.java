@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -48,10 +49,11 @@ public class SuggestionAdapter extends RecyclerView.Adapter<SuggestionAdapter.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv;
-
+        Button btn;
         public ViewHolder(View view) {
             super(view);
             tv = view.findViewById(R.id.suggestion_text);
+            btn = view.findViewById(R.id.search_bitton);
         }
     }
 }

@@ -8,6 +8,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/user_name"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
@@ -27,7 +28,7 @@
         app:layout_constraintVertical_bias="0.224"
         app:layout_goneMarginBottom="40dp"
         app:startIconCheckable="false"
-        app:startIconDrawable="@drawable/user_login"
+        app:startIconDrawable="@drawable/ic_baseline_perm_identity_24"
         app:startIconTint="@color/purple_500">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -40,6 +41,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/password"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="40dp"
@@ -56,7 +58,7 @@
         app:layout_constraintTop_toBottomOf="@+id/user_name"
         app:layout_constraintVertical_bias="0.031"
         app:startIconCheckable="false"
-        app:startIconDrawable="@drawable/password_icon"
+        app:startIconDrawable="@drawable/ic_baseline_lock_24"
         app:startIconTint="@color/purple_500">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -72,12 +74,13 @@
         style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="272dp"
         android:text="Login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/password"
+        app:layout_constraintVertical_bias="0.174" />
 
     <Button
         android:id="@+id/signup_button"

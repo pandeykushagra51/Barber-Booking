@@ -29,7 +29,7 @@
                     android:contentDescription="@string/hide_bottom_view_on_scroll_behavior"
                     android:isScrollContainer="false"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/god" />
+                    android:src="@drawable/phone" />
 
             </androidx.cardview.widget.CardView>
 

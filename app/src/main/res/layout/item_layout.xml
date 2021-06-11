@@ -30,8 +30,8 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="411dp"
+        android:layout_height="119dp"
         android:layout_marginTop="10dp"
         android:background="#FDFAFA"
         android:backgroundTint="#FFFFFF">
@@ -49,7 +49,22 @@
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/item_image"
             android:hint="Service Name"
+            android:textColor="@color/black"
             android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/item_seller_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/item_name"
+            android:layout_alignRight="@id/item_image"
+            android:layout_alignBottom="@id/item_name"
+            android:layout_marginStart="0dp"
+            android:layout_marginRight="-97dp"
+            android:layout_marginBottom="-23dp"
+            android:text="TextView"
+            android:textColor="@color/purple_500"
+            android:textSize="18dp" />
 
         <android.widget.RatingBar
             android:id="@+id/main_item_rating"
@@ -57,10 +72,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/item_name"
+            android:layout_alignStart="@+id/item_seller_name"
             android:layout_alignBottom="@id/item_name"
+            android:layout_marginStart="7dp"
             android:layout_marginLeft="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="-51dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginBottom="-79dp"
             android:layout_toRightOf="@id/item_image"
             android:maxHeight="40dip"
             android:numStars="5"
@@ -77,9 +94,26 @@
             android:layout_marginLeft="128dp"
             android:layout_marginBottom="-29dp"
             android:layout_toRightOf="@id/main_item_rating"
-            android:text="@Rs"
-            android:textSize="30sp"
+            android:text="Rs"
+            android:textSize="26dp"
             android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/item_rate"
+            android:layout_alignBottom="@id/item_name"
+            android:layout_marginLeft="-30dp"
+            android:layout_marginBottom="-30dp"
+            app:srcCompat="@drawable/rupee" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignBottom="@id/main_item_rating"
+            android:background="?android:attr/listDivider" />
 
     </RelativeLayout>
 
