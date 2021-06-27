@@ -7,10 +7,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
+import java.util.*
 
 class ProductViewModel(application: Application) : AndroidViewModel(application) {
     private val productRepo: ProductRepo
-    private var allProduct: LiveData<List<Product?>?>? = null
+ //   private var allProduct: LiveData<List<Product?>?>? = null
     private var product : Product? = null
     private var suggestions : List<String?>? = null
     var cnt=0
@@ -18,16 +19,14 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     init {
         productRepo = ProductRepo(application)
         viewModelScope.launch {
-            allProduct = productRepo.getAllProduct()
+           // allProduct = productRepo.getAllProduct()
         }
     }
 
 
 
-    fun Insert(product: Product) {
-        viewModelScope.launch {
-            productRepo.insert(product)
-        }
+    suspend fun Insert(product: Product) : String? {
+            return productRepo.insert(product)
     }
 
     fun Delete(product: Product) {
@@ -37,30 +36,33 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     }
 
     suspend fun getAllProduct(): LiveData<List<Product?>?>? = withContext(IO) {
-        viewModelScope.launch {
-            allProduct =  productRepo.getAllProduct()
-        }
-        return@withContext allProduct
+//        viewModelScope.launch {
+//            allProduct =  productRepo.getAllProduct()
+//        }
+        return@withContext null
     }
 
-    suspend fun getProductDetail(id: Int): Product? = withContext(IO) {
-            product = productRepo.getProductDetail(id);
-        while (product==null){
 
-        }
-        return@withContext product
+    suspend fun getProductDetail(id: String): Product? = withContext(IO) {
+        val product =async { productRepo.getProductDetail(id)}
+        return@withContext product.await()
     }
 
 
 
     fun getAutoSuggestion(str: String): List<String?>? {
-        viewModelScope.launch {
-            suggestions = productRepo.getSuggestion1(str)
-        }
-        return suggestions
+//        viewModelScope.launch {
+//            suggestions = productRepo.getSuggestion1(str)
+//        }
+        return null
+    }
+
+    suspend fun getNextProduct(last : String?, offSet: Int): ArrayList<Product>? = withContext(IO) {
+        var list = async{productRepo.getNextProduct(last,offSet)}
+        return@withContext list.await()
     }
 
     val id: Int
-        get() = productRepo.id
+        get() = 2
 
 }

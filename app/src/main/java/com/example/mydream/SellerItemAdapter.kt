@@ -11,7 +11,6 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mydream.Tools.Companion.byteToBitmap
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Main
 import java.util.*
@@ -33,11 +32,11 @@ class SellerItemAdapter(var context: Context, products: List<Int>?) : RecyclerVi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         CoroutineScope(Main).launch(){
-            val product = productViewModel!!.getProductDetail(products!![position])
+            val product = productViewModel!!.getProductDetail("dummy")
             holder.name.text = product?.getItemName()
             holder.rate.text = product?.getRate().toString()
             holder.rb.rating = 4f
-            val bmp = byteToBitmap(product!!.getItemImages()[0])
+            val bmp = Tools.stringToBitmap(product!!.getItemImages())
             holder.iv.setImageBitmap(bmp)
         }
     }

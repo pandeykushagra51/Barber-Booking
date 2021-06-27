@@ -28,8 +28,8 @@ class CustomerViewModel(application: Application) : AndroidViewModel(application
         return customerRepo.allCustomer
     }
 
-    fun getCustomerDetail(id: String?): Customer {
-        return customerRepo.getCustomerDetail(id)
+    fun getCustomerDetail(): Customer {
+        return customerRepo.getCustomerDetail()
     }
 
     val allUserName: List<String>
@@ -45,6 +45,18 @@ class CustomerViewModel(application: Application) : AndroidViewModel(application
 
     fun isUserExist(id: String?): Boolean {
         return customerRepo.isUserExist(id)
+    }
+
+    fun isLoggedIn(): Boolean {
+        return customerRepo.isLoggedIn();
+    }
+
+    fun logIn(userName: String?, pasword: String?){
+        customerRepo.logIn(userName,pasword)
+    }
+
+    fun logOut(){
+        customerRepo.logOut()
     }
 
 }

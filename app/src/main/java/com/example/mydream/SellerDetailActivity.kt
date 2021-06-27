@@ -5,14 +5,15 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mydream.Tools.Companion.byteToBitmap
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+
 
 class SellerDetailActivity : AppCompatActivity() {
     var image: ImageView? = null
@@ -31,16 +32,16 @@ class SellerDetailActivity : AppCompatActivity() {
         id = it.getStringExtra("id")
         val productViewModel = ProductViewModel(application)
         sellerViewModel = SellerViewModel(application)
-        CoroutineScope(Main).launch {
-            val seller = sellerViewModel!!.getSellerDetail(id)
-            products = seller.getProductIds()
-            setData(seller)
+        CoroutineScope(IO).launch {
+            val seller = async { sellerViewModel!!.getSellerDetail(id) }
+           // products = seller.await().getProductIds()
+            setData(seller.await())
         }
         sellerItemAdapter = SellerItemAdapter(this, products)
         val sellerLive = sellerViewModel!!.getSellerDetailLive(id)
         sellerLive.observe(this, { seller ->
-            sellerItemAdapter!!.setData(seller.getProductIds())
-            sellerItemAdapter!!.notifyDataSetChanged()
+          //  sellerItemAdapter!!.setData(seller.getProductIds())
+          //  sellerItemAdapter!!.notifyDataSetChanged()
         })
         fab!!.setOnClickListener {
             val it = Intent(this@SellerDetailActivity, AddItemActivity::class.java)
@@ -48,7 +49,7 @@ class SellerDetailActivity : AppCompatActivity() {
             startActivity(it)
         }
         rv!!.layoutManager = LinearLayoutManager(this)
-        rv!!.adapter = sellerItemAdapter
+       // rv!!.adapter = sellerItemAdapter
     }
 
     fun setId() {
@@ -60,8 +61,13 @@ class SellerDetailActivity : AppCompatActivity() {
 
     fun setData(seller: Seller) {
         CoroutineScope(Main).launch {
-            image?.setImageBitmap(byteToBitmap(seller.image))
-            shop_name?.text = seller.shop_name
+            try {
+                image?.setImageBitmap(Tools.stringToBitmap(seller.image))
+                shop_name?.text = seller.shop_name
+            }
+            catch ( e: Exception){
+
+            }
         }
     }
 }

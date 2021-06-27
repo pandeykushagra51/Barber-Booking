@@ -3,6 +3,7 @@ package com.example.mydream
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
+import android.util.Base64
 import android.widget.ImageView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -12,23 +13,26 @@ import java.util.*
 class Tools {
     companion object {
 
-        fun ImageViewToByte(img: ImageView): ByteArray?  {
+        fun ImageViewToString(img: ImageView): String?  {
             var bmp: Bitmap? = null
             var bos: ByteArrayOutputStream? = null
-            var bt: ByteArray? = null
+            var bt: String? = null
             try {
-                bmp = (img.drawable as BitmapDrawable).bitmap
-                bos = ByteArrayOutputStream()
-                bmp!!.compress(Bitmap.CompressFormat.JPEG, 100, bos)
-                bt = bos.toByteArray()
+                val bitmap = (img.drawable as BitmapDrawable).bitmap
+                val baos = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
+                val b = baos.toByteArray()
+                bt = Base64.encodeToString(b, Base64.DEFAULT)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
             return bt
         }
 
-        suspend fun byteToBitmap(image: ByteArray): Bitmap = withContext(Dispatchers.Default){
-            return@withContext BitmapFactory.decodeByteArray(image, 0, image.size)
+        suspend fun stringToBitmap(img: String): Bitmap = withContext(Dispatchers.Default){
+            val imageBytes = Base64.decode(img, 0)
+            val image = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+            return@withContext image
         }
 
         fun RemoveDuplicate(list: MutableList<String?>, str1: String?): MutableList<String?> {

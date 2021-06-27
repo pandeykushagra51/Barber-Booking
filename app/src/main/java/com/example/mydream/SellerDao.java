@@ -14,6 +14,7 @@ import java.util.List;
 public interface SellerDao {
     @Insert
     public void Insert(Seller seller);
+
     @Query("DELETE FROM SELLER WHERE user_name LIKE :id")
     void Delete(String id);
 

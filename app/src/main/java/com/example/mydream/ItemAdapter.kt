@@ -2,7 +2,6 @@ package com.example.mydream
 
 import android.content.ContentValues.TAG
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Paint
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,16 +12,18 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mydream.Tools.Companion.byteToBitmap
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Main
-import java.util.*
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.util.ArrayList;
 
-class ItemAdapter(context: Context, itemClic: ItemClic, products: List<Product>?) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
-    var products: List<Product>? = ArrayList(0)
+class ItemAdapter(context: Context, itemClic: ItemClic, products: ArrayList<Product>?) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
+    var products: ArrayList<Product>? = null
     var itemClic: ItemClic
     var context: Context
-
+    var currItemCount = 0
 
     init {
         this.products = products
@@ -43,8 +44,13 @@ class ItemAdapter(context: Context, itemClic: ItemClic, products: List<Product>?
             holder.rb?.rating = 4f
             holder.sellerName?.text = products!![position].sellerId
             holder.sellerName?.paintFlags = holder.sellerName?.paintFlags!! or Paint.UNDERLINE_TEXT_FLAG
-            val bmp = byteToBitmap(products!![position].getItemImages()[0])
-            holder.iv?.setImageBitmap(bmp)
+            try {
+                val bmp = Tools.stringToBitmap(products!![position].getItemImages())
+                holder.iv?.setImageBitmap(bmp)
+            }
+            catch (e: Exception){
+
+            }
         }
     }
 
@@ -52,9 +58,19 @@ class ItemAdapter(context: Context, itemClic: ItemClic, products: List<Product>?
         return if (products == null) 0 else products!!.size
     }
 
-    fun setData(products: List<Product>?) {
-        this.products = products
-        notifyDataSetChanged()
+
+    suspend fun Insert(list: ArrayList<Product>?){
+        Log.e(TAG, "Insert: inadbk hadd ${list!!.size}", )
+        if(products == null){
+            products = list
+        }
+        else{
+            products!!.addAll(list!!)
+        }
+        withContext(Main){
+            notifyItemRangeInserted(currItemCount,list.size)
+            currItemCount = products!!.size
+        }
     }
 
     inner class ViewHolder(view: View, itemClic: ItemClic) : RecyclerView.ViewHolder(view), View.OnClickListener, OnLongClickListener {
@@ -65,7 +81,8 @@ class ItemAdapter(context: Context, itemClic: ItemClic, products: List<Product>?
         var rb: RatingBar? = null
         var itemClic: ItemClic
         override fun onClick(v: View) {
-            itemClic.onItemClick(v, adapterPosition)
+            itemClic.onItemClick(v,  products!!.get(adapterPosition).getItemId())
+            Log.e(TAG, "onClick: $adapterPosition ${products!!.get(adapterPosition).getItemId()}", )
         }
 
         override fun onLongClick(v: View): Boolean {
@@ -87,7 +104,7 @@ class ItemAdapter(context: Context, itemClic: ItemClic, products: List<Product>?
     }
 
     interface ItemClic {
-        fun onItemClick(view: View?, id: Int)
+        fun onItemClick(view: View?, id: String)
         fun onItemLongClick(view: View?, position: Int): Boolean
     }
 

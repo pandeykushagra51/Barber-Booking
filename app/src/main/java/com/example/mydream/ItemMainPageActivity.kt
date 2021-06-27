@@ -4,33 +4,55 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mydream.ItemAdapter.ItemClic
 import com.google.android.material.card.MaterialCardView
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.lang.reflect.Array
 import java.util.*
 
 class ItemMainPageActivity : AppCompatActivity(), ItemClic {
     var viewModel: ProductViewModel? = null
     var rv: RecyclerView? = null
     var rv1: RecyclerView? = null
+    var loading_container: LinearLayout? = null
     var text: EditText? = null
     var mic: ImageButton? = null
+    var loading_bar: ProgressBar? = null
     var itemAdapter: ItemAdapter? = null
     var suggestionAdapter: SuggestionAdapter? = null
-    var product: List<Product>? = null
+    var product: ArrayList<Product>? = null
     var suggestions: List<String> = ArrayList()
     var productViewModel: ProductViewModel? = null
+    var mLayoutManager : LinearLayoutManager? = null
+    var visibleItemCount : Int = 0
+    var totalItemCount : Int = 0
+    var start : Boolean = true
+    var pastVisiblesItems : Int = 0
+    val offSet : Int = 5
+    var prevList : List<Product>? = null
+    var list : ArrayList<Product>? = null
+    var allItemLoaded: Boolean? = false
+    var loading: Boolean? = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item_main_page)
@@ -41,16 +63,28 @@ class ItemMainPageActivity : AppCompatActivity(), ItemClic {
         productViewModel = ProductViewModel(application)
         rv1!!.layoutManager = LinearLayoutManager(this)
         rv1!!.adapter = suggestionAdapter
-        rv!!.layoutManager = LinearLayoutManager(this)
+        mLayoutManager = LinearLayoutManager(this)
+        rv!!.layoutManager = mLayoutManager
         rv!!.adapter = itemAdapter
-
-        CoroutineScope(Main).launch {
-            productViewModel!!.getAllProduct()!!.observe(this@ItemMainPageActivity, { products ->
-                    itemAdapter!!.setData(products as List<Product>?)
-                    itemAdapter = ItemAdapter(this@ItemMainPageActivity, this@ItemMainPageActivity, products as List<Product>?)
-
-            })
+        CoroutineScope(IO).launch {
+            withContext(Main){
+                loading_bar!!.visibility = View.VISIBLE
+                loading_container!!.visibility = View.GONE
+            }
+            var cist = async {   productViewModel!!.getNextProduct(null, 5)}
+            while (!cist.isCompleted){
+                cist
+            }
+            itemAdapter!!.Insert(cist.await())
+            prevList = cist.await()
+            withContext(Main) {
+                loading_bar!!.visibility = View.GONE
+            }
+            Log.e("gjhv", "onCreate: ${cist.isCompleted}", )
+            System.out.println("kfjbdjd kjbdjsj")
+            start = false
         }
+
         text!!.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
                 rv1!!.visibility = View.VISIBLE
@@ -69,6 +103,8 @@ class ItemMainPageActivity : AppCompatActivity(), ItemClic {
                 if (str.length == 0) mic!!.visibility = View.VISIBLE else mic!!.visibility = View.GONE
             }
         })
+
+
         text!!.onFocusChangeListener = OnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
                 val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
@@ -77,6 +113,46 @@ class ItemMainPageActivity : AppCompatActivity(), ItemClic {
                 rv!!.visibility = View.VISIBLE
             }
         }
+
+        rv!!.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                Log.e("itemMainPageAct", "onScrollStateChanged: sdjvkj", )
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy > 0) { //check for scroll down
+                    CoroutineScope(IO).async {
+                        visibleItemCount = mLayoutManager!!.getChildCount()
+                        totalItemCount = mLayoutManager!!.getItemCount()
+                        pastVisiblesItems = mLayoutManager!!.findFirstVisibleItemPosition()
+                        if (start == false && allItemLoaded == false&&loading==false) {
+                            loading = true
+                            if (visibleItemCount + pastVisiblesItems  >= totalItemCount && totalItemCount <= 20) {
+                                withContext(Main) {
+                                    loading_container!!.visibility = View.VISIBLE
+                                }
+                                val p = async { productViewModel!!.getNextProduct(prevList!!.get(offSet - 1).getItemId(), offSet) }
+                                while (p.isCompleted) {
+                                    p
+                                }
+                                list = p.await()
+                                prevList = p.await()
+                                itemAdapter!!.Insert(p.await())
+                                withContext(Main) {
+                                    loading_container!!.visibility = View.GONE
+                                }
+                                if (list!!.size < offSet) {
+                                    allItemLoaded = true;
+                                }
+                            }
+                            loading = false
+                        }
+                    }
+                }
+            }
+        })
+
     }
 
     fun setId() {
@@ -84,16 +160,18 @@ class ItemMainPageActivity : AppCompatActivity(), ItemClic {
         rv1 = findViewById(R.id.suggestion_rv)
         text = findViewById(R.id.serach_item_text)
         mic = findViewById(R.id.serach_mic)
+        loading_bar = findViewById(R.id.loading)
+        loading_container = findViewById(R.id.progress_bar_container)
     }
 
-    override fun onItemClick(view: View?, id: Int) {
+    override fun onItemClick(view: View?, itemId: String) {
         val card = view as MaterialCardView
         if (card.isChecked) {
             card.isChecked = !card.isChecked
             return
         }
         val it = Intent(this, BookItemActivity::class.java)
-        it.putExtra("id", id)
+        it.putExtra("itemId", itemId)
         startActivity(it)
     }
 

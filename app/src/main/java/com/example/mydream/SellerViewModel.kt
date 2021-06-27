@@ -1,19 +1,21 @@
 package com.example.mydream
 
 import android.app.Application
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import kotlinx.coroutines.CoroutineScope
+import androidx.lifecycle.viewModelScope
+import com.squareup.okhttp.Dispatcher
+import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 
 class SellerViewModel(application: Application) : AndroidViewModel(application) {
     private val sellerRepo: SellerRepo
     private val seller: LiveData<Seller>? = null
     var seller1 : Seller? = null
     private val allSeller: LiveData<List<Seller>>
-    fun Insert(seller: Seller?) {
+    suspend fun Insert(seller: Seller?) {
         sellerRepo.insert(seller)
     }
 
@@ -29,22 +31,21 @@ class SellerViewModel(application: Application) : AndroidViewModel(application) 
         return sellerRepo.getSellerDetailLive(id)
     }
 
-    suspend fun getSellerDetail(id: String?): Seller {
-        CoroutineScope(IO).async {
-            seller1 = sellerRepo.getSellerDetail(id)
-        }.await()
-        return seller1!!
+    suspend fun getSellerDetail(id: String?): Seller  {
+        Log.e(TAG, "getSellerDetail: unava", )
+        return sellerRepo.getSellerDetail(id)
     }
 
     val allUserName: List<String>
         get() = sellerRepo.allUserName
 
-    fun getPassword(id: String?): String {
+    suspend fun getPassword(id: String?): String {
         return sellerRepo.getPassword(id)
     }
 
-    fun Update(seller: Seller?) {
-        sellerRepo.Update(seller)
+
+    suspend fun Update(seller : Seller , id : String ) : Boolean{
+        return sellerRepo.Update(seller,id)
     }
 
     init {

@@ -16,8 +16,11 @@ import java.util.List;
 @Entity(tableName = "PRODUCT")
 public class Product {
     @PrimaryKey(autoGenerate = true) @NonNull
+    @ColumnInfo(name = "kp")
+    protected int kp;
+
     @ColumnInfo(name = "itemId")
-    protected int itemId;
+    public String itemId;
 
     @ColumnInfo(name = "itemName")
     public String itemName;
@@ -43,11 +46,11 @@ public class Product {
         this.itemSimilarName = itemSimilarName;
     }
 
-    public void setItemId(int Itemid){
-        this.itemId=itemId;
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
     }
 
-    public int getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
@@ -83,11 +86,12 @@ public class Product {
         this.itemSimilarName = itemSimilarName;
     }
 
-    public List<byte[]> getItemImages() {
-        Gson gson = new Gson();
-        Type bitMapType = new TypeToken<List<byte[]>>(){}.getType();
-        List<byte[]> list = gson.fromJson(itemImages,bitMapType);
-        return list;
+    public String getItemImages() {
+//        Gson gson = new Gson();
+//        Type bitMapType = new TypeToken<List<String>>(){}.getType();
+//        List<String> list = gson.fromJson(itemImages,bitMapType);
+//        return list;
+            return itemImages;
     }
 
     public void setItemImages(String itemImages) {

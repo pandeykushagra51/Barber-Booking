@@ -2,17 +2,17 @@ package com.example.mydream
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.mydream.Tools.Companion.ImageViewToByte
 import com.google.gson.Gson
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.launch
 import java.util.*
 
 class AddItemActivity : AppCompatActivity() {
@@ -24,18 +24,19 @@ class AddItemActivity : AppCompatActivity() {
     var tags: EditText? = null
     var sellerId: String? = null
     var SELECT_PICTURE = 200
-    var images: MutableList<ByteArray?> = ArrayList()
+    var seller : Seller? = null
+    var images: String? = null
     var sellerViewModel: SellerViewModel? = null
-    var seller: Seller? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seller_add_item)
         setId()
         val it = intent
         sellerId = it.getStringExtra("sellerId")
+        Log.e("id", "onCreate: $sellerId", )
         val productViewModel = ProductViewModel(application)
-        sellerViewModel = ViewModelProvider(this@AddItemActivity).get(SellerViewModel::class.java)
-        CoroutineScope(Main).launch {
+        sellerViewModel = SellerViewModel(application)
+        CoroutineScope(IO).launch{
             seller = sellerViewModel!!.getSellerDetail(sellerId)
         }
         selectImage!!.setOnClickListener {
@@ -45,13 +46,18 @@ class AddItemActivity : AppCompatActivity() {
             startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE)
         }
         addItem!!.setOnClickListener {
-            val json = Gson().toJson(images)
             if (itemImage != null) {
-                productViewModel.Insert(Product(name!!.text.toString(), Integer.valueOf(rate!!.text.toString()), json, sellerId, tags!!.text.toString()))
-                seller!!.setProductIds(productViewModel.id)
-                sellerViewModel!!.Update(seller)
+                CoroutineScope(IO).launch {
+
+                    val id = async {  productViewModel.Insert(Product(name!!.text.toString(), Integer.valueOf(rate!!.text.toString()), images, sellerId, tags!!.text.toString())) }
+                    if(id.await()!=null) {
+                        Log.e("jdcsbdb", "onCreate: mnmnmnmnm", )
+                        seller!!.setProductIds(id.await());
+                        sellerViewModel!!.Update(seller!!, sellerId!!)
+                    }
+                }
             } else Toast.makeText(this@AddItemActivity, "Must Select Image To add Item", Toast.LENGTH_SHORT).show()
-            finish()
+            //finish()
         }
     }
 
@@ -71,7 +77,7 @@ class AddItemActivity : AppCompatActivity() {
                 val selectedImageUri = data!!.data
                 if (null != selectedImageUri) {
                     itemImage!!.setImageURI(selectedImageUri)
-                    images.add(ImageViewToByte(itemImage!!))
+                    images = Tools.ImageViewToString(itemImage!!)
                 }
             }
         }

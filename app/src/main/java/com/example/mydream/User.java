@@ -29,9 +29,9 @@ public class User {
     protected String email_id;
 
     @ColumnInfo(name = "image")
-    protected byte[] image;
+    protected String image;
 
-    protected User(String user_name, String password, String first_name, String last_name, String phone_number, String email_id, byte[] image) {
+    protected User(String user_name, String password, String first_name, String last_name, String phone_number, String email_id, String image) {
         this.user_name = user_name;
         this.password = password;
         this.first_name = first_name;
@@ -40,6 +40,7 @@ public class User {
         this.email_id = email_id;
         this.image = image;
     }
+
 
     public String getUser_name() {
         return user_name;
@@ -65,7 +66,7 @@ public class User {
         return email_id;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
@@ -93,7 +94,7 @@ public class User {
         this.email_id = email_id;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }

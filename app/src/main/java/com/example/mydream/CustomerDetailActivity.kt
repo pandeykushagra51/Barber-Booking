@@ -5,7 +5,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.mydream.Tools.Companion.byteToBitmap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
@@ -26,7 +25,7 @@ class CustomerDetailActivity : AppCompatActivity() {
         val it = intent
         val id = it.getStringExtra("id")
         customerViewModel = ViewModelProvider(this).get(CustomerViewModel::class.java)
-        customer = customerViewModel!!.getCustomerDetail(id)
+        customer = customerViewModel!!.getCustomerDetail()
         setData()
     }
 
@@ -41,7 +40,7 @@ class CustomerDetailActivity : AppCompatActivity() {
 
     private fun setData() {
         CoroutineScope(Main).launch {
-            image!!.setImageBitmap(byteToBitmap(customer!!.getImage()))
+           // image!!.setImageBitmap(byteToBitmap(customer!!.getImage()))
             first_name!!.text = customer!!.getFirst_name()
             last_name!!.text = customer!!.getLast_name()
             phone_number!!.text = customer!!.getPhone_number()
