@@ -7,6 +7,7 @@ import com.google.android.gms.common.util.CollectionUtils.listOf
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
@@ -18,60 +19,62 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 class ProductRepo(application: Application?) {
-//    private val productDao: ProductDao
+    //    private val productDao: ProductDao
     //private val allProduct: LiveData<List<Product?>?>?
-    private var product : Product? = null
-    private var suggestions : List<String?>? = null
-    var reference : CollectionReference? = null
+    private var product: Product? = null
+    private var suggestions: List<String?>? = null
+    var reference: CollectionReference? = null
 
 
     init {
         val productDatabase = ProductDatabase.getInstance(application)
         //productDao = productDatabase.productDao()
-     //   allProduct = productDao.allProduct
+        //   allProduct = productDao.allProduct
         reference = FirebaseFirestore.getInstance().collection("Product")
     }
 
-    suspend fun insert(product: Product?) : String?{
-        var id : String? = null
+    suspend fun insert(product: Product?): String? {
+        var id: String? = null
         id = reference!!.document().id
-        var result : String? = "undone"
+        var result: String? = "undone"
 
         Log.e(TAG, "insert: heloo")
         product!!.setItemId(id)
 
-        val success = suspendCoroutine<String> { cont ->
-            reference!!.document(id).set(product!!)
-                    .addOnSuccessListener(OnSuccessListener {
-                        result = id;
-                        Log.e(TAG, "insert: $id")
-                        cont.resumeWith(Result.success(id))
-                    })
-                    .addOnFailureListener(OnFailureListener {
-                        result = null
-                        Log.e(TAG, "insert: failed1   $it.message  ")
-                        cont.resumeWith(Result.failure(it))
-                    })
-        }
+//        val success = suspendCoroutine<String> { cont ->
+//            reference!!.document(id).set(product!!)
+//                    .addOnSuccessListener(OnSuccessListener {
+//                        result = id;
+//                        Log.e(TAG, "insert: $id")
+//                        cont.resumeWith(Result.success(id))
+//                    })
+//                    .addOnFailureListener(OnFailureListener {
+//                        result = null
+//                        Log.e(TAG, "insert: failed1   $it.message  ")
+//                        cont.resumeWith(Result.failure(it))
+//                    })
+//        }
 
-        return success
+        val idOrNull = reference!!.document(id).setAndWait(product)
+
+        return idOrNull
     }
 
     suspend fun delete(product: Product?) {
-       // productDao.Delete(product)
+        // productDao.Delete(product)
     }
 
 //    val id: Int
 //        get() = productDao.id
 
-    suspend fun  getProductDetail(itemId: String): Product? {
+    suspend fun getProductDetail(itemId: String): Product? {
         var check: Boolean? = null
-        var product:Product? = null
+        var product: Product? = null
         reference!!.document(itemId).get().addOnSuccessListener {
             product = toProduct(it)
             check = true
         }
-        while (check==null){
+        while (check == null) {
             delay(100)
         }
         return product
@@ -108,22 +111,21 @@ class ProductRepo(application: Application?) {
 //    }
 
     suspend fun getNextProduct(last: String?, offSet: Int): ArrayList<Product>? {
-        var check : Boolean? = null
+        var check: Boolean? = null
         Log.e(TAG, "getNextProduct: Onvoked  $last PP")
         var list = ArrayList<Product>()
-        if(last==null){
-             reference!!.orderBy("itemId").limit(offSet.toLong()).get().addOnSuccessListener {
-                 val documents = it.documents
-                 Log.e(TAG, "getNextProduct: productRepo ${it.size()}", )
-                 for (document in documents) {
-                     val product = toProduct(document)
-                     list.add(product)
-                 }
-                 check = true
-             }
+        if (last == null) {
+            reference!!.orderBy("itemId").limit(offSet.toLong()).get().addOnSuccessListener {
+                val documents = it.documents
+                Log.e(TAG, "getNextProduct: productRepo ${it.size()}")
+                for (document in documents) {
+                    val product = toProduct(document)
+                    list.add(product)
+                }
+                check = true
+            }
 
-        }
-        else{
+        } else {
             reference!!.orderBy("itemId").startAfter(last).limit(offSet.toLong()).get().addOnSuccessListener {
                 val documents = it.documents
                 for (document in documents) {
@@ -134,7 +136,7 @@ class ProductRepo(application: Application?) {
 
             }
         }
-        while (check==null){
+        while (check == null) {
             delay(1)
         }
         return list
@@ -146,9 +148,8 @@ class ProductRepo(application: Application?) {
         try {
             val list = document.getString("itemImages")
             product.setItemImages(list)
-        }
-        catch (e: Exception){
-            Log.e(TAG, "toProduct: ${e.toString()}", )
+        } catch (e: Exception) {
+            Log.e(TAG, "toProduct: ${e.toString()}")
         }
         return product
     }
