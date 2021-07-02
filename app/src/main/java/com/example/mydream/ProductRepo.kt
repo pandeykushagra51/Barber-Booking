@@ -14,6 +14,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import java.lang.reflect.Array.get
 import java.util.*
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 class ProductRepo(application: Application?) {
 //    private val productDao: ProductDao
@@ -37,20 +39,22 @@ class ProductRepo(application: Application?) {
 
         Log.e(TAG, "insert: heloo")
         product!!.setItemId(id)
-        reference!!.document(id).set(product!!)
-                .addOnSuccessListener(OnSuccessListener {
 
-                    result = id;
-                    Log.e(TAG, "insert: $id")
-                })
-                .addOnFailureListener(OnFailureListener {
-                    result = null
-                    Log.e(TAG, "insert: failed1   $it.message  ")
-                })
-        while(result=="undone"){
-
+        val success = suspendCoroutine<String> { cont ->
+            reference!!.document(id).set(product!!)
+                    .addOnSuccessListener(OnSuccessListener {
+                        result = id;
+                        Log.e(TAG, "insert: $id")
+                        cont.resumeWith(Result.success(id))
+                    })
+                    .addOnFailureListener(OnFailureListener {
+                        result = null
+                        Log.e(TAG, "insert: failed1   $it.message  ")
+                        cont.resumeWith(Result.failure(it))
+                    })
         }
-        return result
+
+        return success
     }
 
     suspend fun delete(product: Product?) {

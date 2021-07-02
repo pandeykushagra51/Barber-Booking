@@ -1,4 +1,4 @@
-package com.example.mydream
+package com.example.mydream.seller
 
 import android.app.Application
 import android.content.ContentValues.TAG
@@ -6,6 +6,9 @@ import android.graphics.Bitmap
 import android.util.Base64
 import android.util.Log
 import androidx.lifecycle.LiveData
+import com.example.mydream.Seller
+import com.example.mydream.SellerDao
+import com.example.mydream.SellerDatabase
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
@@ -41,7 +44,7 @@ class SellerRepo(application: Application?) {
     //    }
     suspend fun insert(seller: Seller?) : Boolean {
         var status : Boolean = false
-        reference!!.document(seller!!.user_name).set(seller)
+        reference!!.document(seller!!.getUser_name()).set(seller)
                 .addOnSuccessListener(OnSuccessListener {
                     Log.e(TAG, "insert: Success")
                     status = true;

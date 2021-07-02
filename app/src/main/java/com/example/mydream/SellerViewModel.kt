@@ -5,10 +5,7 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.viewModelScope
-import com.squareup.okhttp.Dispatcher
-import kotlinx.coroutines.*
-import kotlinx.coroutines.Dispatchers.IO
+import com.example.mydream.seller.SellerRepo
 
 class SellerViewModel(application: Application) : AndroidViewModel(application) {
     private val sellerRepo: SellerRepo
