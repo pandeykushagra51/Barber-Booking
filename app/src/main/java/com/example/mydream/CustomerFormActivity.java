@@ -18,7 +18,7 @@ public class CustomerFormActivity extends AppCompatActivity {
     private Button select_image,customer_form_register;
     private EditText first_name,last_name,phone_number,email_id,user_name,password;
     private ImageView image;
-    private Byte[] iamge;
+    private String iamge;
     private CustomerViewModel customerViewModel;
     int SELECT_PICTURE=200;
     @Override
@@ -42,7 +42,7 @@ public class CustomerFormActivity extends AppCompatActivity {
                 }
                 customerViewModel.Insert(new Customer(user_name.getText().toString(),password.getText().toString(),
                                         first_name.getText().toString(),last_name.getText().toString(),phone_number.getText().toString(),
-                                        email_id.getText().toString(),image.toString() ));
+                                        email_id.getText().toString(),Tools.Companion.ImageViewToString(image) ));
             }
         });
 

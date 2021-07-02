@@ -25,7 +25,7 @@ class CustomerDetailActivity : AppCompatActivity() {
         val it = intent
         val id = it.getStringExtra("id")
         customerViewModel = ViewModelProvider(this).get(CustomerViewModel::class.java)
-        customer = customerViewModel!!.getCustomerDetail()
+      //  customer = customerViewModel!!.getCustomerDetail()
         setData()
     }
 

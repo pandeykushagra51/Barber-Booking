@@ -45,27 +45,27 @@ public class CustomerLoginPageActivity extends AppCompatActivity {
                 Intent it=new Intent(CustomerLoginPageActivity.this, ItemMainPageActivity.class);
                 //it.putExtra("id",user_name.getText().toString());
                 startActivity(it);
-                List<String> check=customerViewModel.getAllUserName();
-                int check1=0;
-                for(int i=0;i<check.size();i++){
-                    String str1=check.get(i);
-                    String str2=user_name.getText().toString();
-                    if(str1.equals(str2)){
-                        check1=1;
-                        break;
-                    }
-                }
-                if(check1==0){
-                    Toast.makeText(CustomerLoginPageActivity.this,"This Username Does Not Exist", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                String str2=password.getText().toString();
-                String str1=customerViewModel.getPassword((user_name.getText().toString()));
-                if(str1.equals(str2)){
-                }
-                else{
-                    Toast.makeText(CustomerLoginPageActivity.this,"password is incorrect!!!",Toast.LENGTH_SHORT).show();
-                }
+//                List<String> check=customerViewModel.getAllUserName();
+//                int check1=0;
+//                for(int i=0;i<check.size();i++){
+//                    String str1=check.get(i);
+//                    String str2=user_name.getText().toString();
+//                    if(str1.equals(str2)){
+//                        check1=1;
+//                        break;
+//                    }
+//                }
+//                if(check1==0){
+//                    Toast.makeText(CustomerLoginPageActivity.this,"This Username Does Not Exist", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                String str2=password.getText().toString();
+//                String str1=customerViewModel.getPassword((user_name.getText().toString()));
+//                if(str1.equals(str2)){
+//                }
+//                else{
+//                    Toast.makeText(CustomerLoginPageActivity.this,"password is incorrect!!!",Toast.LENGTH_SHORT).show();
+//                }
             }
         });
         sign_up.setOnClickListener(new View.OnClickListener() {

@@ -7,12 +7,12 @@ import androidx.lifecycle.LiveData
 class CustomerViewModel(application: Application) : AndroidViewModel(application) {
     private val customerRepo: CustomerRepo
     private val customer: Customer? = null
-    private val allCustomer: LiveData<List<Customer>>
+   // private val allCustomer: LiveData<List<Customer>>
 
 
     init {
         customerRepo = CustomerRepo(application)
-        allCustomer = getAllCustomer()
+        //allCustomer = getAllCustomer()
     }
 
 
@@ -24,16 +24,16 @@ class CustomerViewModel(application: Application) : AndroidViewModel(application
         customerRepo.delete(id)
     }
 
-    fun getAllCustomer(): LiveData<List<Customer>> {
-        return customerRepo.allCustomer
-    }
+//    fun getAllCustomer(): LiveData<List<Customer>> {
+//        return customerRepo.allCustomer
+//    }
 
-    fun getCustomerDetail(): Customer {
+    suspend fun getCustomerDetail(): Customer {
         return customerRepo.getCustomerDetail()
     }
 
     val allUserName: List<String>
-        get() = customerRepo.allUserName
+        get() = customerRepo.allUserName!!
 
     fun getPassword(id: String?): String {
         return customerRepo.getPassword(id)
@@ -51,12 +51,22 @@ class CustomerViewModel(application: Application) : AndroidViewModel(application
         return customerRepo.isLoggedIn();
     }
 
-    fun logIn(userName: String?, pasword: String?){
-        customerRepo.logIn(userName,pasword)
-    }
 
     fun logOut(){
         customerRepo.logOut()
+    }
+
+    suspend fun logIn(userName: String, pasword: String): Boolean {
+        var isSuccess = customerRepo.logIn(userName,pasword)
+        return isSuccess!!
+    }
+
+    suspend fun getOrderDetail(id: String) : CustomerOrders{
+        return customerRepo.getOrderDetails(id);
+    }
+
+    suspend fun setOrder(customerOrders: CustomerOrders): String?{
+        return customerRepo.setOrder(customerOrders)
     }
 
 }

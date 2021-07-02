@@ -110,6 +110,7 @@ class ProductRepo(application: Application?) {
         if(last==null){
              reference!!.orderBy("itemId").limit(offSet.toLong()).get().addOnSuccessListener {
                  val documents = it.documents
+                 Log.e(TAG, "getNextProduct: productRepo ${it.size()}", )
                  for (document in documents) {
                      val product = toProduct(document)
                      list.add(product)
@@ -130,7 +131,7 @@ class ProductRepo(application: Application?) {
             }
         }
         while (check==null){
-            delay(10)
+            delay(1)
         }
         return list
     }

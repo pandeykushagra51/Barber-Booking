@@ -4,14 +4,14 @@ public class CustomerOrders {
 
     private String orderedId;
     private String customerId;
-    private int time;
+    private Long time;
     private String sellerId;
     private String productId;
-    private int status;
+    private Long status;
 
 
-    public CustomerOrders(String orderedId, String customerId, int time, String sellerId, String productId, int status) {
-        this.orderedId = orderedId;
+    public CustomerOrders(String orderedId, String customerId, Long time, String sellerId, String productId, Long status) {
+    //    this.orderedId = orderedId;
         this.customerId = customerId;
         this.time = time;
         this.sellerId = sellerId;
@@ -35,11 +35,11 @@ public class CustomerOrders {
         this.customerId = customerId;
     }
 
-    public int getTime() {
+    public Long getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(Long time) {
         this.time = time;
     }
 
@@ -59,11 +59,11 @@ public class CustomerOrders {
         this.productId = productId;
     }
 
-    public int getStatus() {
+    public Long getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Long status) {
         this.status = status;
     }
 }
